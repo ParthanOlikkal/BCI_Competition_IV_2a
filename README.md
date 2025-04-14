@@ -5,4 +5,4 @@ This is the BCI Competition IV 2a dataset in .mat format collected from https://
 
 DL Model:
 
-Attempted EENGET on the dataset for 2 class classification. Got 53-58% accuracy.
+Attempted EEGNet on the dataset for 2 class classification. Got 53-58% accuracy.
