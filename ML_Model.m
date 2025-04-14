@@ -3,7 +3,7 @@ clear;
 close all;
 
 % Load Data
-data = load('A01T.mat');
+data = load('A03T.mat');
 fs = 250;
 num_run = 6;
 window_length = 7*fs;
@@ -43,6 +43,16 @@ num_channels = size(eeg_data{1}, 2);
 
 % FBCSP Feature Extraction
 [m_features, m_labels] = extractFBCSPFeatures(left_data, right_data, left_labels, right_labels, subbands, fs);
+
+
+% Mutual Information Feature selection
+[m_features, mu, sigma] = zscore(m_features);
+
+% Selecting tion 10 features using (Minimum Redundancy Maximum Relevance) MRMR
+[ranked_idx, ~] = fscmrmr(m_features, m_labels);
+selected_features = ranked_idx(1:10);
+
+m_features = m_features(:, selected_features);
 
 % Train test split (80: 20)
 [trainX, testX, trainY, testY] = train_test_split(m_features, m_labels, 0.8);
